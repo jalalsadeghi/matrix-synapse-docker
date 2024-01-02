@@ -1,4 +1,4 @@
-namespace: chat
+namespace: rocketchat
 bases:
 - github.com/jitsi-contrib/jitsi-kubernetes/doc/kustomize
 

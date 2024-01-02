@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: rocketchat-server
-  namespace: chat
+  namespace: rocketchat
 spec:
   replicas: 1
   selector:

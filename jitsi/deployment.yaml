@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: jitsi
-  namespace: chat
+  namespace: rocketchat
   labels:
     k8s-app: jitsi
 spec:
