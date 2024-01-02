@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: rocketmongo
+  namespace: chat
+spec:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 1Gi
+  hostPath:
+    path: /etc/mongo/data
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rocketmongo
+  namespace: chat
+spec:
+  storageClassName: ""
+  accessModes:
+    - ReadWriteOnce 
+  volumeName: rocketmongo
+  resources:
+    requests:
+      storage: 1Gi

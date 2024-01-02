@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jitsi
+  namespace: chat
+  labels:
+    k8s-app: jitsi
+spec:
+  template:
+    metadata:
+      labels:
+        k8s-app: jitsi
+    spec:
+      containers:
+        - name: web
+          env:
+            - name: PUBLIC_URL
+              value: "https://chat.nitamowj.ir"
+
+        - name: prosody
+          env:
+            - name: PUBLIC_URL
+              value: "https://chat.nitamowj.ir"

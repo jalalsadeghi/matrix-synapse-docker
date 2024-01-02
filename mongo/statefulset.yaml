@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: rocketmongo
+  namespace: chat
+spec:
+  serviceName: rocketmongo
+  replicas: 3
+  selector:
+    matchLabels:
+      app: rocketmongo
+  template:
+    metadata:
+      labels:
+        app: rocketmongo
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: rocketmongo
+          image: docker.arvancloud.ir/mongo:7.0
+          command:
+          - mongod
+          - "--bind_ip_all"
+          - "--replSet"
+          - rs0
+          ports:
+            - containerPort: 27017
+          volumeMounts:
+          - name: mongo-volume
+            mountPath: /etc/mongo/data
+      volumes:
+        -
+          name: "mongo-volume"
+          persistentVolumeClaim:
+            claimName: "rocketmongo"

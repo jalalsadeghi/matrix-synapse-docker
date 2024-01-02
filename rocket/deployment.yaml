@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rocketchat-server
+  namespace: chat
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rocketchat-server
+  template:
+    metadata:
+      labels:
+        app: rocketchat-server
+    spec:
+      containers:
+        - name: rocketchat-server
+          image: rocketchat/rocket.chat:latest
+          ports:
+            - containerPort: 3000
+          env:
+            # - name: ADMIN_EMAIL
+            #   value: jalal.a.sadeghi@gmail.com
+            # - name: ADMIN_PASS
+            #   value: NitamowjPass
+            # - name: ADMIN_USERNAME
+            #   value: NitamowjAdmin
+            # - name: CREATE_TOKENS_FOR_USERS
+            #   value: "true"
+            - name: MONGO_URL
+              value: mongodb://rocketmongo-0.rocketmongo:27017/rocketchat
+            - name: MONGO_OPLOG_URL
+              value: mongodb://rocketmongo-0.rocketmongo:27017/local?replSet=rs0
+          #   - name: OVERWRITE_SETTING_Allow_Marketing_Emails
+          #     value: "false"
+          #   - name: OVERWRITE_SETTING_Apps_Framework_enabled
+          #     value: "false"
+          #   - name: OVERWRITE_SETTING_Cloud_Service_Agree_PrivacyTerms
+          #     value: "false"
+          #   - name: OVERWRITE_SETTING_Country
+          #   - name: OVERWRITE_SETTING_Industry
+          #   - name: OVERWRITE_SETTING_Language
+          #   - name: OVERWRITE_SETTING_Layout_Home_Body
+          #   - name: OVERWRITE_SETTING_Organization_Name
+          #     value: nitamowj
+          #   - name: OVERWRITE_SETTING_Organization_Type
+          #   - name: OVERWRITE_SETTING_Register_Server
+          #     value: "false"
+          #   - name: OVERWRITE_SETTING_Server_Type
+          #   - name: OVERWRITE_SETTING_Show_Setup_Wizard
+          #     value: completed
+          #   - name: OVERWRITE_SETTING_Site_Name
+          #     value: nitamowj
+          #   - name: OVERWRITE_SETTING_Site_Url
+          #     value: https://chat.nitamowj.ir
+          #   - name: OVERWRITE_SETTING_Size
+          #   - name: OVERWRITE_SETTING_Statistics_reporting
+          #     value: "false"
+          #   - name: OVERWRITE_SETTING_Website
+          #     value: nitamowj
+          #   - name: PORT
+          #     value: "3000"
+          #   - name: ROOT_URL
+          #     value: https://chat.nitamowj.ir
+          # livenessProbe:
+          #   exec:
+          #     command:
+          #       - node
+          #       - --eval
+          #       - 'const http = require(''http''); const options = {host: ''0.0.0.0'', port: 3000, timeout: 2000, path:''/health''}; const healthCheck = http.request(options, (res) => {console.log(''HEALTHCHECK STATUS:'', res.statusCode); if (res.statusCode == 200) {process.exit(0);} else {process.exit(1);}}); healthCheck.on(''error'', function (err) {console.error(''ERROR''); process.exit(1);}); healthCheck.end();'
+          #   failureThreshold: 5
+          #   initialDelaySeconds: 200
+          #   periodSeconds: 10
+          #   timeoutSeconds: 20
+          imagePullPolicy: Always

@@ -1,0 +1,9 @@
+namespace: chat
+bases:
+- github.com/jitsi-contrib/jitsi-kubernetes/doc/kustomize
+
+resources:
+- ingress.yaml
+
+patchesStrategicMerge:
+- deployment.yaml
