@@ -14,12 +14,13 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "300m"
 spec:
   ingressClassName: nginx
   tls:
     - hosts:
       - chat.nitamowj.ir
-      secretName: nitamowj-tls
+      secretName: nita-tls
   rules:
   - host: chat.nitamowj.ir
     http:
